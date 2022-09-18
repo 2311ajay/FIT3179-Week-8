@@ -1,0 +1,38 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Threat levels in the USA",
+  "width": 800,
+  "height": 400,
+  "projection": {"type": "albersUsa"},
+  "data": {
+    "url": "https://raw.githubusercontent.com/2311ajay/FIT3179-Week-8/main/js/ne_50m_admin_1_states_provinces.topojson",
+    "format": {"type": "topojson", "feature": "ne_50m_admin_1_states_provinces"}
+  },
+  "transform": [
+    {
+      "lookup": "properties.name",
+      "from": {
+        "data": {
+          "url": "https://raw.githubusercontent.com/2311ajay/FIT3179-Week-8/main/data/US%20Police%20shootings%20in%20from%202015-22.csv"
+        },
+        "key": "city",
+        "fields": ["threat_level"]
+      }
+    },
+    {"calculate": "datum.threat_level + 0", "as": "threat_levels"}
+  ],
+  "mark": {"type": "geoshape"},  
+  "encoding": {    
+        "color": {      
+          "field": "threat_levels",      
+          "type": "quantitative",      
+          "scale": {"type": "linear"}    
+        },    
+        "tooltip": [      
+          {"field": "properties.name", 
+          "type": "nominal", 
+          "title": "city"},      
+          {"field": "threat_levels", "type": "quantitative"}    
+        ]  
+      }
+}
