@@ -15,7 +15,7 @@
         "data": {
           "url": "https://raw.githubusercontent.com/2311ajay/FIT3179-Week-8/main/data/US%20Police%20shootings%20in%20from%202015-22.csv"
         },
-        "key": "city",
+        "key": "name_alt",
         "fields": ["threat_level"]
       }
     },
