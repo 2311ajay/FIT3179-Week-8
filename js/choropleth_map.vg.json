@@ -44,6 +44,7 @@
             "color": {
               "field": "Ladder_score",
               "type": "quantitative",
+              "title": "Happiness Score",
               "scale": {"domain": [2, 8], "scheme": "plasma"}
             },
             "tooltip": [
