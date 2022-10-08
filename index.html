@@ -1,27 +1,202 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <!-- Import Vega & Vega-Lite (does not have to be from CDN) -->
-  <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
-  
-  <!-- CSS file -->
-  <link rel="stylesheet" type="text/css" href="css/styles.css" media="all">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+      crossorigin="anonymous"
+    />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter&family=Source+Sans+Pro:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- custom CSS -->
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <!-- Vegalite -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+    <title>World Happiness Visualisation</title>
+  </head>
+  <body class="vsc-initialized">
+    <!-- Header (Title) -->
+    <div class="section p-3">
+      <div class="container">
+        <div class="row background_b">
+          <div class="col-12 d-flex justify-content-center">
+            <div class="h1 align-middle p-3" id="headline">
+              World Happiness Report
+            </div>
+          </div>
+        </div>
+        <div class="row background_a">
+          <div class="col-12 d-flex justify-content-center">
+            <div class="span p-4">
+              The World Happiness Report is a publication that contains articles and rankings of national happiness, 
+              based on respondent ratings of their own lives from a scale of
+              <span class="fw-bold fs-4" style="color: #990000">0</span> to
+              <span class="fw-bold fs-4" style="color: #006400">10</span>. 
+              As of March 2022, <b><a style="color: black;" href="https://en.wikipedia.org/wiki/Finland">Finland</a></b> had been ranked the happiest country in the world five times in a row. Let's dive
+              into the visualisations below to see which countries are the happiest and why.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Choropleth Map Section -->
+    <div class="section p-3">
+      <div class="container">
+        <div class="row background_c">
+          <div class="col-12">
+            <div class="span p-4">
+              The following map shows the happiness happy different countries over the past
+              <b>10 years</b>. Generally, developed countries
+              in <b>Western Europe</b>, 
+              <b class="fw-bold">North America</b> and <b>ANZ</b> are the <b style="color: #006400;">happiest</b>. Conversely, under-developed countries in 
+              <b>Sub-Saharan Africa</b> are the <b style="color: #990000;">saddest</b>.
+            </div>
+          </div>
+          <div class="col-12 d-flex justify-content-center">
+            <div id="vis1" class="p-3 w-100"></div>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
-</head>
-<body>
-  
-<div id="choropleth_map"></div>
 
-<script type="text/javascript">
+    <!-- Bar chart section (Top 5 saddest and happiest countries) -->
+    <div class="section p-3">
+      <div class="container">
+        <div class="row background_a">
+          <div class="col-12 mt-3 mx-3">
+            <h1 class="fw-bold">
+              Economic output as an indicator of happiness
+            </h1>
+          </div>
+          <div >
+            <p class="px-3 fs-6" style="color: #5d5d5d;">
+            Let's see how GDP affects happiness in different regions
+            </p>
+          </div>
+          <div class="col-12 mt-3 mx-3" style="display: flex;">
+            <div id="vis2a" style="flex: 3;"></div>
+            <span class="p-3" style="flex: 2;">
+              <div class="h3 pb-3 fw-bold">Who says <span class="pop">money</span> can't make you happy!</div>
+              The bubble plot shows a <span style="font-style:italic;">high</span> correlation between <b>happiness</b> and
+              <b>GDP</b>. This shows that richer countries tend to be happier compared
+              to poorer countries.<br><br> Note how <span class="fw-bold" style="color:#5d5d5d;">Western Europe</span> is the richest and also happiest region. It also has some of the highest social support of any region. Some <span class="fw-bold" style="color:firebrick;">East Asian</span>
+              countries such as <span class="fw-bold">Taiwan</span>, <span class="fw-bold">Japan</span> and <span class="fw-bold">South Korea</span> also have very
+              good economic production and social support score.
+            </span>
+          </div>
 
-  var spec2 = "js/choropleth_map.vg.json";
-  vegaEmbed('#choropleth_map', spec2).then(function(result) {
-    // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
-  }).catch(console.error);
-</script>
+        </div>
+      </div>
+    </div>
 
-</body>
+    <!-- Change slelect -->
+    <script type="text/javascript">
+      console.log("hi");
+      $("select").each(function () {
+        console.log($this);
+        $(this).addClass("form-select");
+      });
+    </script>
+    <!-- Vegalite Embeds -->
+    <script type="text/javascript">
+      var vis1 = "vegaLiteJsonScripts/choropleth_map.vg.json";
+      vegaEmbed("#vis1", vis1)
+        .then(function (result) {})
+        .catch(console.error);
+
+      var vis2a = "vegaLiteJsonScripts/gdp_social_support_bubbleplot.json";
+      vegaEmbed("#vis2a", vis2a)
+        .then(function (result) {})
+        .catch(console.error);
+
+      var vis2b = "vegaLiteJsonScripts/freedom_corruption_bubbleplot.json";
+      vegaEmbed("#vis2c", vis2b)
+        .then(function (result) {})
+        .catch(console.error);
+
+      var vis2c = "vegaLiteJsonScripts/generosity_bubbleplot.json";
+      vegaEmbed("#vis2d", vis2c)
+        .then(function (result) {})
+        .catch(console.error);
+
+      var vis2d = "vegaLiteJsonScripts/longevity_bubbleplot.json";
+      vegaEmbed("#vis2e", vis2d)
+        .then(function (result) {})
+        .catch(console.error);
+
+
+      var vis3 = "vegaLiteJsonScripts/multiple_boxplot.json";
+      vegaEmbed("#vis3", vis3)
+        .then(function (result) {})
+        .catch(console.error);
+
+      var vis4 = "vegaLiteJsonScripts/brushable_dynamic_barchart.json";
+      vegaEmbed("#vis4", vis4)
+        .then(function (result) {})
+        .catch(console.error);
+
+      var vis5 = "vegaLiteJsonScripts/triple_chart.json";
+      vegaEmbed("#vis5", vis5)
+        .then(function (result) {})
+        .catch(console.error);
+
+      var vis6 = "vegaLiteJsonScripts/bumpchart.json";
+      vegaEmbed("#vis6", vis6)
+        .then(function (result) {})
+        .catch(console.error);
+    </script>
+
+    <!-- Custom scripts -->
+    <script type="text/javascript" src="vegaLiteJsonScripts/scripts.js"></script>
+
+    <!-- Bootstrap (Popper) -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/vegaLiteJsonScripts/bootstrap.bundle.min.js"
+      integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
